@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>owner</title>
+  <meta charset="UTF-8">
+<!-- Below is the initialization snippet for my Firebase project. It will vary for each project -->
+
+<script src="https://www.gstatic.com/firebasejs/5.5.5/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyA6-VDro673H9GgdFj824OQWZwkY2DHeT4",
+    authDomain: "smartparking-62de8.firebaseapp.com",
+    databaseURL: "https://smartparking-62de8.firebaseio.com",
+    projectId: "smartparking-62de8",
+    storageBucket: "smartparking-62de8.appspot.com",
+    messagingSenderId: "468354801372"
+  };
+  firebase.initializeApp(config);
+</script>
+<link href="style.css" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <div class="heading">
+        <h1>LIVE STATUS FIREBASE</h1>
+    </div>
+  <h1 style="text-align:center">BOOKING STATUS</h1>
+  <div class="container">
+    <div class="bookContainer">
+      <h2>PARKING SPACE 1</h2>:
+      <span id="one"></span>
+      <h5>SET AVAILABILITY FOR NEXT BOOKINGS</h5>
+      <label class="switch">
+        <input id="checkbox1" type="checkbox">
+        <span class="slider round"></span>
+      </label>
+    </div>
+    <div class="bookContainer">
+      <h2>PARKING SPACE 2</h2>:
+      <span id="two"></span>
+      <h5>SET AVAILABILITY</h5>
+      <label class="switch">
+        <input id="checkbox2" type="checkbox">
+        <span class="slider round"></span>
+      </label>
+    </div>
+  </div>
+  <br />
+  <h1 style="text-align:center">LIVE STATUS</h1>
+  <div class="container">
+    <div class="live">
+      <img class="nocar" id="nocar1" src="./img/car1.jpg">
+      <img class="car" id="car1" src="./img/car.png" alt="CAR1">
+      <ul>
+        <li><img id="true1" width="20%" src="./img/tick.png"></li>
+        <li><img id="false1" width="20%" src="./img/cross.png"></li>
+      </ul>
+    </div>
+    <div class="live">
+      <img class="nocar" id="nocar2" src="./img/car1.jpg">
+      <img class="car" id="car2" src="./img/car.png" alt="CAR2">
+      <ul>
+        <li><img id="true2" width="20%" src="./img/tick.png"></li>
+        <li><img id="false2" width="20%" src="./img/cross.png"></li>
+      </ul>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script>
+      function login(){
+
+        alert(usrname+" clicked "+password);
+      }
+    $(function(){
+      firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        // User is signed in.
+        var displayName = user.displayName;
+        var email = user.email;
+        var emailVerified = user.emailVerified;
+        var photoURL = user.photoURL;
+        var isAnonymous = user.isAnonymous;
+        var uid = user.uid;
+        var providerData = user.providerData;
+        // ...
+      } else {
+        // User is signed out.
+        // ...
+      }
+    });
+    $("#usrname").on("input",function(){
+      alert("kjmkkjnknj");
+    });
+
+      $("#true1").hide();
+      $("#false1").hide();
+      $("#true2").hide();
+      $("#false2").hide();
+      $(".car").hide();
+      $(".nocar").show();
+      $("#myBtn").click(function(){
+        $("#myModal").modal();
+    });
+    var checkbox1 = document.querySelector('#checkbox1');
+    var checkbox2 = document.querySelector('#checkbox2');
+
+    var ref = firebase.database().ref();
+    var sensor1 = ref.child('Ultrasonic sensor 1');
+    var sensor2 = ref.child('Ultrasonic sensor 2');
+    var space1 = ref.child('occupancy/space1');
+    var space2 = ref.child('occupancy/space2');
+    var available1 = ref.child('availability');
+    var available2 = ref.child('availability');
+    var one = document.getElementById('one');
+    var two = document.getElementById('two');
+    var login = document.getElementById('login_icon');
+    sensor1.on("value", function (snap) {
+      if (snap.val() == "1")
+        one.innerText = "BOOKED";
+      else
+        one.innerText = "NOT BOOKED";
+    });
+    sensor2.on("value", function (snap) {
+      if (snap.val() == "1")
+        two.innerText = "BOOKED";
+      else
+        two.innerText = "NOT BOOKED";
+    });
+  
+    
+    // login.addEventListener('click',function(){
+
+    // })
+    checkbox1.addEventListener('change', function () {
+        if (checkbox1.checked) {
+          available1.update({
+            space1: "yes"
+          });
+          $("#nocar1").hide(100);
+          $('#car1').show(100);
+        space1.on("value", function (snap) {
+          if (snap.val() == "true") {
+          $("#true1").show(50);
+          $("#false1").hide(50);
+          }
+          else{
+          $('#true1').hide(100);
+          $("#false1").show(100);
+        } 
+      });
+    }
+      else{
+          available1.update({
+          space1: "no"
+          });
+        $("#nocar1").show(100);
+        $('#car1').hide(100);
+        $("#true1").hide(50);
+        $("#false1").hide(50);
+      }
+  });
+  checkbox2.addEventListener('change', function () {
+        if (checkbox2.checked) {
+          available2.update({
+            space2: "yes"
+          });
+          $("#nocar2").hide(100);
+          $('#car2').show(100);
+        space2.on("value", function (snap) {
+          if (snap.val() == "true") {
+          $("#true2").show(50);
+          $("#false2").hide(50);
+          }
+          else{
+          $('#true2').hide(100);
+          $("#false2").show(100);
+        } 
+      });
+    }
+      else{
+        available2.update({
+            space2: "no"
+          });
+        $("#nocar2").show(100);
+        $('#car2').hide(100);
+        $("#true2").hide(50);
+        $("#false2").hide(50);
+      }
+  });
+
+});
+  </script>
+</body>
+
+</html>

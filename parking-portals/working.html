@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Parking automation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"/> -->
+    <link href='https://fonts.googleapis.com/css?family=Aldrich' rel='stylesheet'>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
+        integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://assets.shiftr.io/js/mqtt-2.9.0.js"></script>
+    <script src="script.js" charset="utf-8"></script>
+</head>
+
+<body>
+    <div class="heading">
+        <h1>WORKING</h1>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="page col-md-6">
+
+                <ul class="list-group border">
+                    <li class="list-group-item active bg-info">TOPIC: STATUS/AVAILABILITY</li>
+                    <li class="list-group-item">Description: Setting the availability by parking owner whether he want
+                        to rent his space or not</li>
+                    <li class="list-group-item">
+                        <button type="button" class="btn btn-outline-success" id="button1">Publish True</button>
+                        <button type="button" class="btn btn-outline-danger" id="button2">Publish False</button>
+                    </li>
+                </ul>
+                <ul class="list-group border">
+                    <li class="list-group-item active bg-info">User Registration</li>
+                    <li class="list-group-item">Description: user looking for the parking space needs to register to
+                        our app by mentioning the VIN number and
+                        certain
+                        other details</li>
+                </ul>
+                <ul class="list-group border">
+                    <li class="list-group-item active bg-info">Search for Parking</li>
+                    <li class="list-group-item">User can search parking space with googlemap searchbar or by his gps
+                        coordinates</li>
+                </ul>
+                <ul class="list-group border">
+                    <li class="list-group-item active bg-info">TOPIC:- STATUS/BOOKING</li>
+                    <li class="list-group-item">Description: Booking Initiated after successful payment FOR A SPECIFIC
+                        INTERVAL</li>
+                    <li class="list-group-item">
+                        <button type="button" class="btn btn-outline-success" id="booking1">Publish True</button>
+                        <button type="button" class="btn btn-outline-danger" id="booking2">Publish False</button>
+                    </li>
+                </ul>
+                <ul class="list-group border">
+                    <li class="list-group-item active bg-info">TOPIC:- STATUS/PERMIT</li>
+                    <li class="list-group-item">Description: On reaching the the parking spot, the car owner needs to
+                        scan the QR code for verification</li>
+                    <li class="list-group-item">
+                        <button type="button" class="btn btn-outline-success" id="permit1">Publish True</button>
+                        <button type="button" class="btn btn-outline-danger" id="permit2">Publish False</button>
+                    </li>
+                </ul>
+                <ul class="list-group border">
+                    <li class="list-group-item active bg-info">TOPIC:- STATUS/PARKED</li>
+                    <li class="list-group-item">Description: Car owner have to scan the qr Again before leaving for
+                        closing the Garage(In case of private
+                        parking only)</li>
+                    <li class="list-group-item">
+                        <button type="button" class="btn btn-outline-success" id="parked1">Publish True</button>
+                        <button type="button" class="btn btn-outline-danger" id="parked2">Publish False</button>
+                    </li>
+                </ul>
+                <ul class="list-group border">
+                    <li class="list-group-item active bg-info">TOPIC:- STATUS/PARKING</li>
+                    <li class="list-group-item">Description: Car owner and Parking owner can monitor the vehicle from
+                        anywhere</li>
+                    <li class="list-group-item">
+                        <ul class="list-group border">
+                            <h3>To get Real time updates</h3>
+                            <li class="list-group-item active bg-info">SLOT1</li>
+                                <button class="btn btn-outline-info" id="subscribe1">Subscribe </button>
+                                <button class="btn btn-outline-danger" id="unsubscribe1">UnSubscribe</button>
+                            </li>
+                            <li class="list-group-item active bg-info">SLOT2</li>
+                                <button class="btn btn-outline-info" id="subscribe2">Subscribe </button>
+                                <button class="btn btn-outline-danger" id="unsubscribe2">UnSubscribe</button>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <iframe src="https://shiftr.io/jigneshk5/esp8266/embed?zoom=1" width="600" height="500" frameborder="0"
+                    webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
