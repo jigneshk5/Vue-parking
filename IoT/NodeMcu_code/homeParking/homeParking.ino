@@ -1,10 +1,8 @@
 #include <FirebaseArduino.h>
 #include <ESP8266WiFiMulti.h>
-
+#include "credentials_firebase.h"
 ESP8266WiFiMulti WiFiMulti;
 // Set these to run example.
-#define FIREBASE_HOST "smartparking-62de8.firebaseio.com"
-#define FIREBASE_AUTH "r4IE5XR8AJAXPIeqAcLmjOKJYaa0t4YKKsYHztTy"
 
 const int trigPin = D0;
 const int echoPin = D1;
